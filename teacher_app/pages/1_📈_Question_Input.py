@@ -8,6 +8,26 @@ st.set_page_config(
 )
 
 
+def upload_question(connection, question: str, marking_points: list[str]):
+    with connection.session as s:
+        res = s.execute(
+            text("INSERT INTO Questions (Description) VALUES (:description)"),
+            params=dict(description=question),
+        )
+        s.commit()
+
+        question_id = res.lastrowid
+
+        for point in marking_points:
+            s.execute(
+                text(
+                    "INSERT INTO MarkingPoints (QuestionID, Sentence) VALUES (:id, :sentence)"
+                ),
+                params=dict(id=question_id, sentence=point),
+            )
+        s.commit()
+
+
 st.markdown("# Input your question below.")
 st.sidebar.header("Question Input")
 
@@ -41,20 +61,8 @@ with st.form("question_form", clear_on_submit=True):
 
         conn = st.connection("main_db", type="sql", ttl=0)
 
-        with conn.session as s:
-            res = s.execute(
-                text("INSERT INTO Questions (Description) VALUES (:description)"),
-                params=dict(description=question),
-            )
-            s.commit()
+        marking_points = edited_df["Sentence"].to_list()
 
-            question_id = res.lastrowid
-
-            marking_points = edited_df["Sentence"].to_list()
-
-            for point in marking_points:
-                s.execute(
-                    text("INSERT INTO MarkingPoints (QuestionID, Sentence) VALUES (:id, :sentence)"),
-                    params=dict(id=question_id, sentence=point),
-                )
-            s.commit()
+        upload_question(
+            connection=conn, question=question, marking_points=marking_points
+        )
