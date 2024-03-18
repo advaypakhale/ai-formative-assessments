@@ -44,7 +44,7 @@ with st.form("answer_form", clear_on_submit=True):
         )
         feedback = feedback_generator.generate_feedback()
 
-        st.write(feedback)
+        st.json(feedback)
 
         # with conn.session as s:
         #     res = s.execute(
