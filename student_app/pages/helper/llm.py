@@ -1,13 +1,6 @@
 from langchain_community.chat_models.ollama import ChatOllama
-from langchain_community.llms import Ollama
-from langchain_core.output_parsers import JsonOutputParser, StrOutputParser
-from langchain_core.prompts import (
-    ChatPromptTemplate,
-    FewShotChatMessagePromptTemplate,
-    FewShotPromptTemplate,
-    PromptTemplate,
-)
-from langchain_core.pydantic_v1 import BaseModel, Field
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
 
 
 class FeedbackGenerator:
@@ -94,9 +87,7 @@ class FeedbackGenerator:
         This marking point is required to be captured within the student's response for them to score a point on the question.
         A student response will be given. Your job is to identify whether the marking point has been accurately and completely captured by the student's response.
         
-        You will respond within TWO SENTENCES explaining whether you the marking point has been accurately and completely captured.
-        Include the marking point within your response.
-        Do not use any external knowledge when responding. Do only a direct comparison between the marking point and the student response.
+        You will respond within ONE SENTENCES explaining whether you the marking point has been accurately and completely captured.
         
         Examples of sample inputs and outputs have been provided. Do not respond to these examples.
         """
