@@ -66,3 +66,35 @@ with st.form("question_form", clear_on_submit=True):
         upload_question(
             connection=conn, question=question, marking_points=marking_points
         )
+
+        # print(question)
+        # print(marking_points)
+        # print("\n\n")
+
+# Allow teachers to upload Excel file containing questions
+uploaded_file = st.file_uploader("Choose a file")
+
+if uploaded_file is not None:
+    xl = pd.ExcelFile(uploaded_file)
+    df = xl.parse("Bio")
+
+    questions = df["Question"]
+    marking_schemes = df["Marking Scheme"]
+    data = []
+
+    conn = st.connection("main_db", type="sql", ttl=0)
+
+    for question, marking_scheme in zip(questions, marking_schemes):
+
+        marking_points = marking_scheme.split("\n")
+        upload_question(
+            connection=conn,
+            question=question,
+            marking_points=marking_points,
+        )
+
+        # print(question)
+        # print(marking_points)
+        # print("\n\n")
+
+    st.write("Question(s) Uploaded Successfully!")
