@@ -94,7 +94,9 @@ class FeedbackGenerator:
         This marking point is required to be captured within the student's response for them to score a point on the question.
         A student response will be given. Your job is to identify whether the marking point has been accurately and completely captured by the student's response.
         
-        You will respond within ONE SENTENCE explaining whether you the marking point has been accurately and completely captured.
+        You will respond within TWO SENTENCES explaining whether you the marking point has been accurately and completely captured.
+        Include the marking point within your response.
+        Do not use any external knowledge when responding. Do only a direct comparison between the marking point and the student response.
         
         Examples of sample inputs and outputs have been provided. Do not respond to these examples.
         """
