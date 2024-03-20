@@ -45,35 +45,3 @@ with st.form("answer_form", clear_on_submit=True):
         feedback = feedback_generator.generate_feedback()
 
         st.json(feedback)
-
-        # with conn.session as s:
-        #     res = s.execute(
-        #         "INSERT INTO Questions (Description) VALUES (:description)",
-        #         params=dict(description=question),
-        #     )
-        #     s.commit()
-
-        #     question_id = res.lastrowid
-
-        #     marking_points = edited_df["Sentence"].to_list()
-
-        #     for point in marking_points:
-        #         s.execute(
-        #             "INSERT INTO MarkingPoints (QuestionID, Sentence) VALUES (:id, :sentence)",
-        #             params=dict(id=question_id, sentence=point),
-        #         )
-        #     s.commit()
-
-# st.dataframe(
-#     conn.query(
-#         f"SELECT Sentence FROM MarkingPoints WHERE QuestionID = {question_id}",
-#         ttl=0,
-#     ),
-#     column_config={
-#         "Sentence": st.column_config.TextColumn(
-#             "Marking Point",
-#             width="large",
-#         ),
-#     },
-#     hide_index=True,
-# )
